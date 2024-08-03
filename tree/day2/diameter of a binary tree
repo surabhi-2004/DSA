@@ -1,0 +1,29 @@
+//by making objects of diameter and height
+class Solution {
+    static class info{
+        int diam;
+        int ht;
+        public info(int diam,int ht){
+            this.diam = diam;
+            this.ht = ht;
+        }
+    }
+
+    public static info diameter(TreeNode root){
+        if(root == null){
+            return new info(0,0);
+        }
+        info leftinfo = diameter(root.left);
+        info rightinfo = diameter(root.right);
+
+        int diam = Math.max(leftinfo.diam,Math.max(rightinfo.diam,leftinfo.ht + rightinfo.ht +1));
+        int ht = Math.max(leftinfo.ht,rightinfo.ht)+1;
+
+        return new info(diam,ht); 
+    }
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        info obj = diameter(root);
+        return (obj.diam-1);        
+    }
+}
